@@ -8,6 +8,10 @@
   font-family: "Nunito Sans", sans-serif;
 }
 
+.main-container {
+  margin: 24px 24px;
+}
+
 @layer components {
   .modal-container-style {
     @apply w-[420px] rounded-[10px] shadow-md border bg-white mx-2 md:mx-0;
@@ -35,5 +39,17 @@
 @layer components {
   .input-form-style {
     @apply font-normal text-xs text-neutral-90 rounded-lg px-4 py-2 bg-white border-2 border-input_border placeholder:text-input_border focus:border-primary_border focus:ring-primary_border focus:outline-primary_border;
+  }
+}
+
+@layer components {
+  .font-submit-btn-style {
+    @apply font-bold text-sm px-4 py-2 rounded-lg cursor-pointer transition duration-[.2s];
+  }
+}
+
+@layer components {
+  .error-text-form-style {
+    @apply text-xs text-red-500 mb-6;
   }
 }

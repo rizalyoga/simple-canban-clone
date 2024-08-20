@@ -21,7 +21,8 @@ export default {
         neutral: {
           100: "#1D1F20",
           90: "#404040",
-          40: "#EDEDED",
+          70: "#757575",
+          40: "#E0E0E0",
           30: "#EDEDED",
           20: "#FAFAFA",
           10: "#FFFFFF",

@@ -80,7 +80,7 @@ const LoginForm = () => {
         <p className="text-xs text-red-500 mb-6">{isErrorMessage}</p>
         <input
           className={clsx(
-            "w-full text-white font-bold text-sm px-4 py-2 rounded-lg cursor-pointer",
+            "w-full text-neutral-10 font-submit-btn-style",
             isLoading
               ? "bg-slate-400 cursor-progress"
               : "bg-primary_main hover:bg-primary_border"
