@@ -5,7 +5,7 @@ const MainPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate("/login");
+    navigate("v1/login");
   }, [navigate]);
 
   return <div></div>;
