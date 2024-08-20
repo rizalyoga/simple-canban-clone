@@ -40,17 +40,17 @@ const RegisterForm = () => {
       .finally(() => setIsLoading(false));
   };
   return (
-    <div className="w-[420px] rounded-[10px] shadow-md border bg-white mx-2 md:mx-0">
+    <div className="modal-container-style">
       <div className="head-form p-6">
-        <p className="text-lg font-bold">Register Form</p>
+        <p className="title-form-style">Register Form</p>
       </div>
       <form onSubmit={onSubmitHandler} className="px-6 ">
-        <div className="email-form-input flex flex-col gap-2 mb-6">
-          <label className="text-[#404040] font-bold text-xs" htmlFor="name">
+        <div className="email-form-input div-input-style">
+          <label className="label-form-style" htmlFor="name">
             Name
           </label>
           <input
-            className="font-normal text-xs rounded-lg px-4 py-2 bg-white border-2 border-[#EDEDED]"
+            className="input-form-style"
             type="text"
             name="name"
             id="name"
@@ -59,12 +59,12 @@ const RegisterForm = () => {
             required
           />
         </div>
-        <div className="email-form-input flex flex-col gap-2 mb-6">
-          <label className="text-[#404040] font-bold text-xs" htmlFor="email">
+        <div className="email-form-input div-input-style">
+          <label className="label-form-style" htmlFor="email">
             Email
           </label>
           <input
-            className="font-normal text-xs rounded-lg px-4 py-2 bg-white border-2 border-[#EDEDED]"
+            className="input-form-style"
             type="email"
             name="email"
             id="email"
@@ -73,15 +73,12 @@ const RegisterForm = () => {
             required
           />
         </div>
-        <div className="password-form-input flex flex-col gap-2 mb-6">
-          <label
-            className="text-[#404040] font-bold text-xs"
-            htmlFor="password"
-          >
+        <div className="password-form-input div-input-style">
+          <label className="label-form-style" htmlFor="password">
             Password
           </label>
           <input
-            className="font-normal text-xs rounded-lg px-4 py-2 bg-white border-2 border-[#EDEDED]"
+            className="input-form-style"
             type="password"
             name="password"
             id="password"
@@ -90,15 +87,12 @@ const RegisterForm = () => {
             required
           />
         </div>
-        <div className="password-form-input flex flex-col gap-2 mb-6">
-          <label
-            className="text-[#404040] font-bold text-xs"
-            htmlFor="password_confirmation"
-          >
+        <div className="password-form-input div-input-style">
+          <label className="label-form-style" htmlFor="password_confirmation">
             Confirm Password
           </label>
           <input
-            className="font-normal text-xs rounded-lg px-4 py-2 bg-white border-2 border-[#EDEDED]"
+            className="input-form-style"
             type="password"
             name="password_confirmation"
             id="password_confirmation"
@@ -113,7 +107,7 @@ const RegisterForm = () => {
             "w-full text-white font-bold text-sm  px-4 py-2 rounded-lg cursor-pointer ",
             isLoading
               ? "bg-slate-400 cursor-progress"
-              : "bg-[#01959F] hover:bg-[#43936C]"
+              : "bg-primary_main hover:bg-primary_border"
           )}
           type="submit"
           value={"Register"}
