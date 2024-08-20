@@ -2,11 +2,24 @@ import { Link } from "react-router-dom";
 
 const RegisterForm = () => {
   return (
-    <div className="w-[420px] rounded-[10px] shadow-md border bg-white">
+    <div className="w-[420px] rounded-[10px] shadow-md border bg-white mx-2 md:mx-0">
       <div className="head-form p-6">
         <p className="text-lg font-bold">Register Form</p>
       </div>
       <form className="px-6 ">
+        <div className="email-form-input flex flex-col gap-2 mb-6">
+          <label className="text-[#404040] font-bold text-xs" htmlFor="name">
+            Name
+          </label>
+          <input
+            className="font-normal text-xs rounded-lg px-4 py-2 bg-white border-2 border-[#EDEDED]"
+            type="text"
+            name="name"
+            id="name"
+            placeholder="name"
+            required
+          />
+        </div>
         <div className="email-form-input flex flex-col gap-2 mb-6">
           <label className="text-[#404040] font-bold text-xs" htmlFor="email">
             Email
@@ -60,7 +73,10 @@ const RegisterForm = () => {
       </form>
       <p className="p-6 text-center text-xs text-[#404040]">
         Already have an account ?
-        <Link className="hover:text-blue-600" to={"/login"}>
+        <Link
+          className="underline font-semibold hover:text-blue-600"
+          to={"/login"}
+        >
           {" "}
           Sign In
         </Link>

@@ -1,12 +1,33 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthInputInterface as LoginDataInterface } from "../../types/type";
 
 const LoginForm = () => {
+  const [loginData, setLoginData] = useState<LoginDataInterface>({
+    email: "",
+    password: "",
+  });
+
+  const onChageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    console.log(value);
+
+    setLoginData({
+      ...loginData,
+      [e.target.name]: value,
+    });
+  };
+
+  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
-    <div className="w-[420px] rounded-[10px] shadow-md border bg-white">
+    <div className="w-[420px] rounded-[10px] shadow-md border bg-white mx-2 md:mx-0">
       <div className="head-form p-6">
         <p className="text-lg font-bold">Login Form</p>
       </div>
-      <form className="px-6 ">
+      <form onSubmit={onSubmitHandler} className="px-6 ">
         <div className="email-form-input flex flex-col gap-2 mb-6">
           <label className="text-[#404040] font-bold text-xs" htmlFor="email">
             Email
@@ -17,6 +38,8 @@ const LoginForm = () => {
             name="email"
             id="email"
             placeholder="email"
+            value={loginData.email}
+            onChange={onChageHandler}
             required
           />
         </div>
@@ -33,6 +56,8 @@ const LoginForm = () => {
             name="password"
             id="password"
             placeholder="password"
+            value={loginData.password}
+            onChange={onChageHandler}
             required
           />
         </div>
@@ -44,7 +69,10 @@ const LoginForm = () => {
       </form>
       <p className="p-6 text-center text-xs text-[#404040]">
         Don't have an account ?
-        <Link className="hover:text-blue-600" to={"/register"}>
+        <Link
+          className="underline font-semibold hover:text-blue-600"
+          to={"/register"}
+        >
           {" "}
           Sign Up
         </Link>
