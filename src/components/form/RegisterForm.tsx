@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { PostRegister } from "../../lib/api/post-auth";
 import { RegisterInterface } from "../../types/type";
 import clsx from "clsx";
 
 const RegisterForm = () => {
-  const navigate = useNavigate();
   const [isErrorMessage, setIsErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [registerData, setRegisterData] = useState<RegisterInterface>({
@@ -30,7 +29,9 @@ const RegisterForm = () => {
     PostRegister(registerData)
       .then((result) => {
         sessionStorage.setItem("auth_token", JSON.stringify(result.auth_token));
-        navigate("/v1/dashboard");
+        setTimeout(() => {
+          window.location.href = "/v1/dashboard";
+        }, 1000);
       })
       .catch((err) => {
         setIsErrorMessage("Error : Please check your data again");

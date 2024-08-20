@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { PostLogin } from "../../lib/api/post-auth";
 import { AuthInputInterface as LoginDataInterface } from "../../types/type";
 import clsx from "clsx";
 
 const LoginForm = () => {
-  const navigate = useNavigate();
   const [isErrorMessage, setIsErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [loginData, setLoginData] = useState<LoginDataInterface>({
@@ -28,7 +27,9 @@ const LoginForm = () => {
     PostLogin(loginData)
       .then((result) => {
         sessionStorage.setItem("auth_token", JSON.stringify(result.auth_token));
-        navigate("/v1/dashboard");
+        setTimeout(() => {
+          window.location.href = "/v1/dashboard";
+        }, 1000);
       })
       .catch((err) => {
         setIsErrorMessage("Error : Please check your data again");
