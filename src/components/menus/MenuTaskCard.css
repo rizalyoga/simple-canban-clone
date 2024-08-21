@@ -1,0 +1,16 @@
+/* Mengganti ikon saat di-hover */
+li[data-hover="right"]:hover .right-icon {
+  content: url("../../assets/icons/right-arrow-hover.svg");
+}
+
+li[data-hover="left"]:hover .left-icon {
+  content: url("../../assets/icons/left-arrow-hover.svg");
+}
+
+li[data-hover="edit"]:hover .edit-icon {
+  content: url("../../assets/icons/edit-icon-hover.svg");
+}
+
+li[data-hover="delete"]:hover .trash-icon {
+  content: url("../../assets/icons/trash-icon-hover.svg");
+}

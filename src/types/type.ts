@@ -27,11 +27,16 @@ export interface TodosTaskInterface {
   progress_percentage: number;
 }
 
+export interface MenuTaskCardInterface {
+  OpenMenuHandler: () => void;
+}
+
 export interface ModalPropsInterface {
   modal_handler: () => void;
   update_state?: () => void;
   modal_type?: "new-group" | "new-task" | "delete-task";
   todos_group_id?: number;
+  task_id?: number;
 }
 
 export interface ModalNewGroupDataInterface {

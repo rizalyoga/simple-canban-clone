@@ -71,3 +71,15 @@
     @apply font-submit-btn-style text-neutral-100 bg-neutral-10 rounded-lg hover:bg-neutral-40 border-[1px] border-neutral-40;
   }
 }
+
+@layer components {
+  .font-menu-style {
+    @apply px-4 h-9 text-sm leading-6 font-semibold cursor-pointer transition duration-[.2s] hover:text-primary_main hover:bg-white;
+  }
+}
+
+@layer components {
+  .list-menu-container-style {
+    @apply flex justify-start items-center gap-4;
+  }
+}
