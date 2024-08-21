@@ -7,14 +7,18 @@ import { getTodosGroup } from "../../lib/api/todos-group/todos-group";
 import { TodosGroupInterface } from "../../types/type";
 
 const Dashboard = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [listTodosGroup, setListTodosGroup] = useState<TodosGroupInterface[]>(
     []
   );
 
   useEffect(() => {
-    getTodosGroup().then((response: TodosGroupInterface[]) => {
-      setListTodosGroup(response);
-    });
+    setIsLoading(true);
+    getTodosGroup()
+      .then((response: TodosGroupInterface[]) => {
+        setListTodosGroup(response);
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   const updateTodosGroup = () => {
@@ -27,6 +31,13 @@ const Dashboard = () => {
     <LayoutPrivatePage isSignedIn={token}>
       <Navbar update_state={updateTodosGroup} />
       <section className="min-h-[85vh] main-container">
+        {isLoading && (
+          <div className="h-[80vh] flex justify-center items-center">
+            <h1 className=" font-bold text-2xl text-neutral-90">
+              Please wait...
+            </h1>
+          </div>
+        )}
         {listTodosGroup.length <= 0 && (
           <div className="h-[80vh] flex justify-center items-center">
             <h1 className=" font-bold text-2xl text-neutral-90">

@@ -54,11 +54,12 @@ const CardTask = ({
           />
           {isOpenMenu && (
             <MenuTaskCard
-              OpenMenuHandler={isOpenMenuHandler}
-              OpenDeleteModalHandler={isOpenDeleteModalHandler}
-              OpenEditModalHandler={isOpenEditModalHandler}
+              openMenuHandler={isOpenMenuHandler}
+              openDeleteModalHandler={isOpenDeleteModalHandler}
+              openEditModalHandler={isOpenEditModalHandler}
               task_id={taskData.id}
               todos_group_id={todos_group_id}
+              update_state={update_state}
             />
           )}
           {isOpenEditModal && (

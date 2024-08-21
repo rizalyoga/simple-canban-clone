@@ -28,9 +28,10 @@ export interface TodosTaskInterface {
 }
 
 export interface MenuTaskCardInterface {
-  OpenMenuHandler: () => void;
-  OpenDeleteModalHandler?: () => void;
-  OpenEditModalHandler?: () => void;
+  openMenuHandler: () => void;
+  openDeleteModalHandler?: () => void;
+  openEditModalHandler?: () => void;
+  update_state?: () => void;
   task_id: number;
   todos_group_id: number;
 }

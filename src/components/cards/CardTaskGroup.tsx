@@ -3,7 +3,7 @@ import CardTask from "./CardTask";
 import NewTaskIcon from "../../assets/icons/new-task-btn.png";
 import ModalContainer from "../modals/ModalContainer";
 import { TodosGroupInterface, TodosTaskInterface } from "../../types/type";
-import { getTaskTodos } from "../../lib/api/todos-task/todos-task";
+import { getTodosTask } from "../../lib/api/todos-task/todos-task";
 import {
   getColorBackground,
   getColorBorder,
@@ -22,7 +22,7 @@ const CardTaskGroup = ({
   const [listTaskTodos, setListTaskTodos] = useState<TodosTaskInterface[]>([]);
 
   useEffect(() => {
-    getTaskTodos(TodosGroupData.id).then((response) =>
+    getTodosTask(TodosGroupData.id).then((response) =>
       setListTaskTodos(response)
     );
   }, [TodosGroupData.id]);
@@ -32,7 +32,7 @@ const CardTaskGroup = ({
   };
 
   const updateListTask = () => {
-    getTaskTodos(TodosGroupData.id).then((response) => {
+    getTodosTask(TodosGroupData.id).then((response) => {
       setListTaskTodos(response);
     });
   };

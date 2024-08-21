@@ -5,8 +5,7 @@ import RightArrow from "../../assets/icons/right-arrow.svg";
 import EditIcon from "../../assets/icons/edit-icon.svg";
 import TrashIcon from "../../assets/icons/trash-icon.svg";
 import { MenuTaskCardInterface } from "../../types/type";
-
-// import ModalContainer from "../modals/ModalContainer";
+import { moveTodosTask } from "../../lib/api/todos-task/todos-task";
 
 const MenuTaskCard = (props: MenuTaskCardInterface) => {
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -14,7 +13,7 @@ const MenuTaskCard = (props: MenuTaskCardInterface) => {
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        props.OpenMenuHandler();
+        props.openMenuHandler();
       }
     },
     [props]
@@ -27,6 +26,22 @@ const MenuTaskCard = (props: MenuTaskCardInterface) => {
     };
   }, [handleClickOutside]);
 
+  const moveTask = (moveTo: "left" | "right") => {
+    moveTodosTask({
+      todos_group_id: props.todos_group_id,
+      task_id: props.task_id,
+      moving_to: moveTo,
+      name: "",
+      progress_percentage: 0,
+    }).then((response) => {
+      if (response) {
+        if (props.update_state) {
+          props.update_state();
+        }
+      }
+    });
+  };
+
   return (
     <>
       <div
@@ -37,6 +52,7 @@ const MenuTaskCard = (props: MenuTaskCardInterface) => {
           <li
             className="font-menu-style list-menu-container-style text-utilities"
             data-hover="right"
+            onClick={() => moveTask("right")}
           >
             <img
               className="ml-1 right-icon"
@@ -48,6 +64,7 @@ const MenuTaskCard = (props: MenuTaskCardInterface) => {
           <li
             className="font-menu-style list-menu-container-style text-utilities"
             data-hover="left"
+            onClick={() => moveTask("left")}
           >
             <img className="ml-1 left-icon" src={LeftArrow} alt="left-icon" />
             <span className="ml-[2px]">Move Left</span>
@@ -55,7 +72,7 @@ const MenuTaskCard = (props: MenuTaskCardInterface) => {
           <li
             className="font-menu-style list-menu-container-style text-utilities"
             data-hover="edit"
-            onClick={props.OpenEditModalHandler}
+            onClick={props.openEditModalHandler}
           >
             <img className="edit-icon" src={EditIcon} alt="edit-icon" />
             <span>Edit</span>
@@ -63,7 +80,7 @@ const MenuTaskCard = (props: MenuTaskCardInterface) => {
           <li
             className="font-menu-style list-menu-container-style text-utilities hover:text-danger_main"
             data-hover="delete"
-            onClick={props.OpenDeleteModalHandler}
+            onClick={props.openDeleteModalHandler}
           >
             <img className="trash-icon" src={TrashIcon} alt="trash-icon" />
             <span className="ml-[2px]">Delete</span>
