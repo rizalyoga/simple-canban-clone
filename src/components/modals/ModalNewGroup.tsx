@@ -3,7 +3,7 @@ import { ModalPropsInterface } from "../../types/type";
 import { postTodosGroup } from "../../lib/api/todos-group/todos-group";
 import clsx from "clsx";
 
-const ModalNewGroup = (modalProps: ModalPropsInterface) => {
+const ModalNewGroup = (props: ModalPropsInterface) => {
   const [isLoading, setIsLoading] = useState(false);
   const [todosGroupData, setTodosGroupData] = useState({
     title: "",
@@ -27,17 +27,17 @@ const ModalNewGroup = (modalProps: ModalPropsInterface) => {
     postTodosGroup(todosGroupData)
       .then((res) => {
         if (res) {
-          if (modalProps.update_state) {
-            modalProps.update_state();
+          if (props.update_state) {
+            props.update_state();
           }
         }
       })
       .then(() => setIsLoading(false))
-      .then(() => modalProps.modal_handler());
+      .then(() => props.modal_handler());
   };
 
   const onCancelHandler = () => {
-    modalProps.modal_handler();
+    props.modal_handler();
   };
 
   return (

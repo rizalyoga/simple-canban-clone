@@ -5,12 +5,28 @@ import { TodosTaskInterface } from "../../types/type";
 import ProgressBar from "../progress-bar/ProgressBar";
 import MenuTaskCard from "../menus/MenuTaskCard";
 
-const CardTask = ({ taskData }: { taskData: TodosTaskInterface }) => {
+import ModalContainer from "../modals/ModalContainer";
+
+const CardTask = ({
+  taskData,
+  todos_group_id,
+  update_state,
+}: {
+  taskData: TodosTaskInterface;
+  update_state: () => void;
+  todos_group_id: number;
+}) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const [isOpenDeleteModal, setIsDeleteModal] = useState(false);
   const [srcImage, setSrcImage] = useState(SettingIcon);
 
   const isOpenMenuHandler = () => {
     setIsOpenMenu((open) => !open);
+  };
+
+  const isOpenDeleteModalHandler = () => {
+    setIsDeleteModal((open) => !open);
+    setIsOpenMenu(false);
   };
 
   return (
@@ -30,7 +46,23 @@ const CardTask = ({ taskData }: { taskData: TodosTaskInterface }) => {
             alt="setting-icon"
             onClick={isOpenMenuHandler}
           />
-          {isOpenMenu && <MenuTaskCard OpenMenuHandler={isOpenMenuHandler} />}
+          {isOpenMenu && (
+            <MenuTaskCard
+              OpenMenuHandler={isOpenMenuHandler}
+              OpenDeleteModalHandler={isOpenDeleteModalHandler}
+              task_id={taskData.id}
+              todos_group_id={todos_group_id}
+            />
+          )}
+          {isOpenDeleteModal && (
+            <ModalContainer
+              modal_type="delete-task"
+              task_id={taskData.id}
+              todos_group_id={todos_group_id}
+              modal_handler={isOpenDeleteModalHandler}
+              update_state={update_state}
+            />
+          )}
         </div>
       </div>
     </>

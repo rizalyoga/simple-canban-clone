@@ -50,3 +50,34 @@ export const postTodosTask = async (payload: ModalNewTaskDataInterface) => {
     throw error;
   }
 };
+
+export const deleteTodosTask = async ({
+  group_id,
+  task_id,
+}: {
+  group_id: number;
+  task_id: number;
+}) => {
+  try {
+    const response = await fetch(
+      `${API_URL}/todos/${group_id}/items/${task_id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token?.slice(1, -1)}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = { message: "Delete Success" };
+
+    return data;
+  } catch (error) {
+    console.error("Error during API call:", error);
+    throw error;
+  }
+};

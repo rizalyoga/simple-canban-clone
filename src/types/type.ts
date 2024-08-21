@@ -29,6 +29,9 @@ export interface TodosTaskInterface {
 
 export interface MenuTaskCardInterface {
   OpenMenuHandler: () => void;
+  OpenDeleteModalHandler: () => void;
+  task_id: number;
+  todos_group_id: number;
 }
 
 export interface ModalPropsInterface {

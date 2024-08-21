@@ -5,8 +5,9 @@ import {
 } from "../../types/type";
 import { postTodosTask } from "../../lib/api/todos-task/todos-task";
 import clsx from "clsx";
+import CloseIcon from "../../assets/icons/close-icon.svg";
 
-const ModalNewTask = (taskModalProps: ModalPropsInterface) => {
+const ModalNewTask = (props: ModalPropsInterface) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isErrorMessage, setIsErrorMessage] = useState("");
   const [todosTaskData, setTodosTaskData] = useState({
@@ -32,20 +33,20 @@ const ModalNewTask = (taskModalProps: ModalPropsInterface) => {
     if (validProgressValues.includes(progressValue)) {
       const newTask: ModalNewTaskDataInterface = {
         name: todosTaskData.taks_name,
-        todos_group_id: taskModalProps.todos_group_id as number,
+        todos_group_id: props.todos_group_id as number,
         progress_percentage: progressValue,
       };
 
       postTodosTask(newTask)
         .then((res) => {
           if (res) {
-            if (taskModalProps.update_state) {
-              taskModalProps.update_state();
+            if (props.update_state) {
+              props.update_state();
             }
           }
         })
         .then(() => setIsLoading(false))
-        .then(() => taskModalProps.modal_handler());
+        .then(() => props.modal_handler());
     } else {
       setIsErrorMessage(
         "The progress range is only from 10, 20, 30, 40 ... 100"
@@ -55,13 +56,19 @@ const ModalNewTask = (taskModalProps: ModalPropsInterface) => {
   };
 
   const onCancelHandler = () => {
-    taskModalProps.modal_handler();
+    props.modal_handler();
   };
 
   return (
     <div className="modal-container-style">
       <div className="head-div-modal-style">
         <p className="title-form-style">Create Task</p>
+        <img
+          className="cursor-pointer"
+          onClick={onCancelHandler}
+          src={CloseIcon}
+          alt="close-btn"
+        />
       </div>
       <form onSubmit={onSubmitHandler} className="px-6">
         <div className="div-input-style">

@@ -74,7 +74,11 @@ const CardTaskGroup = ({
           ) : (
             listTaskTodos.map((task) => (
               <React.Fragment key={task.id}>
-                <CardTask taskData={task} />
+                <CardTask
+                  taskData={task}
+                  todos_group_id={TodosGroupData.id}
+                  update_state={updateListTask}
+                />
               </React.Fragment>
             ))
           )}
