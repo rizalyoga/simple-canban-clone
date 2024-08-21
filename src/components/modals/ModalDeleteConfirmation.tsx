@@ -46,7 +46,7 @@ const ModalDeleteConfirmation = (props: ModalPropsInterface) => {
         />
       </div>
       <p className="text-sm leading-6 font-normal text-neutral-90 px-6">
-        Are you sure want to delete this task? your action cant be reverted.
+        Are you sure want to delete this task? Your action cant be reverted.
       </p>
       <div className="buttons-container w-full flex gap-[10px] justify-end pt-4 pb-6 px-6">
         <button className="cancel-btn" onClick={onCancelHandler}>

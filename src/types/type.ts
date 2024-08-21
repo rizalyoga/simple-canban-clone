@@ -29,7 +29,8 @@ export interface TodosTaskInterface {
 
 export interface MenuTaskCardInterface {
   OpenMenuHandler: () => void;
-  OpenDeleteModalHandler: () => void;
+  OpenDeleteModalHandler?: () => void;
+  OpenEditModalHandler?: () => void;
   task_id: number;
   todos_group_id: number;
 }
@@ -37,9 +38,11 @@ export interface MenuTaskCardInterface {
 export interface ModalPropsInterface {
   modal_handler: () => void;
   update_state?: () => void;
-  modal_type?: "new-group" | "new-task" | "delete-task";
+  modal_type?: "new-group" | "new-task" | "delete-task" | "edit-task";
   todos_group_id?: number;
   task_id?: number;
+  task_name?: string;
+  progress_percentage?: number;
 }
 
 export interface ModalNewGroupDataInterface {

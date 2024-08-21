@@ -1,5 +1,6 @@
 import ModalNewGroup from "./ModalNewGroup";
 import ModalNewTask from "./ModalNewTask";
+import ModalEditTask from "./ModalEditTask";
 import ModalDeleteConfirmation from "./ModalDeleteConfirmation";
 import { ModalPropsInterface } from "../../types/type";
 
@@ -19,12 +20,21 @@ const ModalContainer = (props: ModalPropsInterface) => {
               todos_group_id={props.todos_group_id}
               update_state={props.update_state}
             />
-          ) : (
+          ) : props.modal_type == "delete-task" ? (
             <ModalDeleteConfirmation
               modal_handler={props.modal_handler}
               task_id={props.task_id}
               todos_group_id={props.todos_group_id}
               update_state={props.update_state}
+            />
+          ) : (
+            <ModalEditTask
+              modal_handler={props.modal_handler}
+              task_id={props.task_id}
+              todos_group_id={props.todos_group_id}
+              update_state={props.update_state}
+              task_name={props.task_name}
+              progress_percentage={props.progress_percentage}
             />
           )}
         </div>

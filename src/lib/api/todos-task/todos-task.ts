@@ -1,6 +1,10 @@
 import { getToken as token } from "../get-token";
 import { ModalNewTaskDataInterface } from "../../../types/type";
 
+interface ModalEditTaskInterface extends ModalNewTaskDataInterface {
+  task_id: number;
+}
+
 const API_URL = import.meta.env.VITE_BASE_LINK_URL;
 
 export const getTaskTodos = async (todosGroupId: number) => {
@@ -35,6 +39,39 @@ export const postTodosTask = async (payload: ModalNewTaskDataInterface) => {
           Authorization: `Bearer ${token?.slice(1, -1)}`,
         },
         body: JSON.stringify(payload),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.error("Error during API call:", error);
+    throw error;
+  }
+};
+
+export const editTodosTask = async (payload: ModalEditTaskInterface) => {
+  const newData = {
+    target_todo_id: payload.todos_group_id,
+    name: payload.name,
+    progress_percentage: payload.progress_percentage,
+  };
+
+  try {
+    const response = await fetch(
+      `${API_URL}/todos/${payload.todos_group_id}/items/${payload.task_id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token?.slice(1, -1)}`,
+        },
+        body: JSON.stringify(newData),
       }
     );
 

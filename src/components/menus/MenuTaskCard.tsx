@@ -55,6 +55,7 @@ const MenuTaskCard = (props: MenuTaskCardInterface) => {
           <li
             className="font-menu-style list-menu-container-style text-utilities"
             data-hover="edit"
+            onClick={props.OpenEditModalHandler}
           >
             <img className="edit-icon" src={EditIcon} alt="edit-icon" />
             <span>Edit</span>

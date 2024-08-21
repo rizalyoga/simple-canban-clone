@@ -18,6 +18,7 @@ const CardTask = ({
 }) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenDeleteModal, setIsDeleteModal] = useState(false);
+  const [isOpenEditModal, setIsEditModal] = useState(false);
   const [srcImage, setSrcImage] = useState(SettingIcon);
 
   const isOpenMenuHandler = () => {
@@ -26,6 +27,11 @@ const CardTask = ({
 
   const isOpenDeleteModalHandler = () => {
     setIsDeleteModal((open) => !open);
+    setIsOpenMenu(false);
+  };
+
+  const isOpenEditModalHandler = () => {
+    setIsEditModal((open) => !open);
     setIsOpenMenu(false);
   };
 
@@ -50,8 +56,20 @@ const CardTask = ({
             <MenuTaskCard
               OpenMenuHandler={isOpenMenuHandler}
               OpenDeleteModalHandler={isOpenDeleteModalHandler}
+              OpenEditModalHandler={isOpenEditModalHandler}
               task_id={taskData.id}
               todos_group_id={todos_group_id}
+            />
+          )}
+          {isOpenEditModal && (
+            <ModalContainer
+              modal_type="edit-task"
+              task_id={taskData.id}
+              todos_group_id={todos_group_id}
+              modal_handler={isOpenEditModalHandler}
+              update_state={update_state}
+              task_name={taskData.name}
+              progress_percentage={taskData.progress_percentage}
             />
           )}
           {isOpenDeleteModal && (
