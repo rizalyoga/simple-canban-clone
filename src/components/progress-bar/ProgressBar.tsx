@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import Checklist from "../../assets/icons/checklist.png";
+import ChecklistSVG from "../../assets/icons/checklist.svg";
 
 const ProgressBar = ({ progress }: { progress: number }) => {
   return (
@@ -7,8 +7,10 @@ const ProgressBar = ({ progress }: { progress: number }) => {
       <div className="w-full bg-neutral-30 rounded-full h-4 ">
         <div
           className={clsx(
-            "h-4 rounded-full",
-            progress < 100 ? "bg-primary_main" : "bg-success_main"
+            "h-4",
+            progress < 100
+              ? "bg-primary_main rounded-l-full"
+              : "bg-success_main rounded-full"
           )}
           style={{ width: `${progress}%` }}
         ></div>
@@ -17,7 +19,7 @@ const ProgressBar = ({ progress }: { progress: number }) => {
         {progress < 100 ? (
           `${progress}%`
         ) : (
-          <img src={Checklist} alt="checklist" className="w-[18px] h-4" />
+          <img src={ChecklistSVG} alt="checklist" className="w-[18px] h-4" />
         )}
       </span>
     </div>
