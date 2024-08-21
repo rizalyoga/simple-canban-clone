@@ -31,7 +31,7 @@ const RegisterForm = () => {
         sessionStorage.setItem("auth_token", JSON.stringify(result.auth_token));
         setTimeout(() => {
           window.location.href = "/v1/dashboard";
-        }, 1000);
+        }, 500);
       })
       .catch((err) => {
         setIsErrorMessage("Error : Please check your data again");

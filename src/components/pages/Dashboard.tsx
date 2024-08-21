@@ -26,7 +26,14 @@ const Dashboard = () => {
   return (
     <LayoutPrivatePage isSignedIn={token}>
       <Navbar update_state={updateTodosGroup} />
-      <section className="min-h-screen main-container">
+      <section className="min-h-[85vh] main-container">
+        {listTodosGroup.length <= 0 && (
+          <div className="h-[80vh] flex justify-center items-center">
+            <h1 className=" font-bold text-2xl text-neutral-90">
+              You don't have data
+            </h1>
+          </div>
+        )}
         <div className="task-grouping-container grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {listTodosGroup.map((group, index) => (
             <React.Fragment key={group.id}>
