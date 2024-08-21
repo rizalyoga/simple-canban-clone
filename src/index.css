@@ -19,6 +19,12 @@
 }
 
 @layer components {
+  .head-div-modal-style {
+    @apply flex justify-between items-center p-6;
+  }
+}
+
+@layer components {
   .title-form-style {
     @apply text-lg text-neutral-100 font-bold;
   }
@@ -51,5 +57,17 @@
 @layer components {
   .error-text-form-style {
     @apply text-xs text-red-500 mb-6;
+  }
+}
+
+@layer components {
+  .submit-btn {
+    @apply font-submit-btn-style text-white;
+  }
+}
+
+@layer components {
+  .cancel-btn {
+    @apply font-submit-btn-style text-neutral-100 bg-neutral-10 rounded-lg hover:bg-neutral-40 border-[1px] border-neutral-40;
   }
 }

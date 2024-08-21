@@ -26,3 +26,21 @@ export interface TodosTaskInterface {
   updated_at: string;
   progress_percentage: number;
 }
+
+export interface ModalPropsInterface {
+  modal_handler: () => void;
+  update_state?: () => void;
+  modal_type?: "new-group" | "new-task" | "delete-task";
+  todos_group_id?: number;
+}
+
+export interface ModalNewGroupDataInterface {
+  title: string;
+  description: string;
+}
+
+export interface ModalNewTaskDataInterface {
+  name: string;
+  progress_percentage: number;
+  todos_group_id: number;
+}

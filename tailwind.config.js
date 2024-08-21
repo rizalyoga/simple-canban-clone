@@ -29,6 +29,7 @@ export default {
         },
         input_border: "EDEDED",
         utilities: "#333333",
+        overlay: "#9F9F9F",
       },
     },
   },

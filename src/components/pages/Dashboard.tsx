@@ -17,14 +17,20 @@ const Dashboard = () => {
     });
   }, []);
 
+  const updateTodosGroup = () => {
+    getTodosGroup().then((response: TodosGroupInterface[]) => {
+      setListTodosGroup(response);
+    });
+  };
+
   return (
     <LayoutPrivatePage isSignedIn={token}>
-      <Navbar />
+      <Navbar update_state={updateTodosGroup} />
       <section className="min-h-screen main-container">
         <div className="task-grouping-container grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          {listTodosGroup.map((group) => (
+          {listTodosGroup.map((group, index) => (
             <React.Fragment key={group.id}>
-              <CardTaskGroup TodosGroupData={group} />
+              <CardTaskGroup TodosGroupData={group} index={index} />
             </React.Fragment>
           ))}
         </div>

@@ -1,4 +1,5 @@
 import { getToken as token } from "../get-token";
+import { ModalNewTaskDataInterface } from "../../../types/type";
 
 const API_URL = import.meta.env.VITE_BASE_LINK_URL;
 
@@ -9,6 +10,33 @@ export const getTaskTodos = async (todosGroupId: number) => {
         Authorization: `Bearer ${token?.slice(1, -1)}`,
       },
     });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.error("Error during API call:", error);
+    throw error;
+  }
+};
+
+export const postTodosTask = async (payload: ModalNewTaskDataInterface) => {
+  try {
+    const response = await fetch(
+      `${API_URL}/todos/${payload.todos_group_id}/items`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token?.slice(1, -1)}`,
+        },
+        body: JSON.stringify(payload),
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
