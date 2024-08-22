@@ -33,11 +33,9 @@ const MenuTaskCard = (props: MenuTaskCardInterface) => {
       moving_to: moveTo,
       name: "",
       progress_percentage: 0,
-    }).then((response) => {
-      if (response) {
-        if (props.update_state) {
-          props.update_state();
-        }
+    }).then(() => {
+      if (props.update_state) {
+        props.update_state();
       }
     });
   };

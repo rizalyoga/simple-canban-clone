@@ -38,7 +38,7 @@ export interface MenuTaskCardInterface {
 
 export interface ModalPropsInterface {
   modal_handler: () => void;
-  update_state?: () => void;
+  update_state?: (todos_group_id: number) => void;
   modal_type?: "new-group" | "new-task" | "delete-task" | "edit-task";
   todos_group_id?: number;
   task_id?: number;

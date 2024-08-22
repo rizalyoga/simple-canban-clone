@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import CardTask from "./CardTask";
 import NewTaskIcon from "../../assets/icons/new-task-btn.png";
 import ModalContainer from "../modals/ModalContainer";
@@ -10,6 +10,7 @@ import {
   getColorText,
 } from "../../lib/get-color";
 import clsx from "clsx";
+import useSWR from "swr";
 
 const CardTaskGroup = ({
   TodosGroupData,
@@ -19,22 +20,21 @@ const CardTaskGroup = ({
   index: number;
 }) => {
   const [isOpenNewTaskModal, setIsOpenNewTaskModal] = useState(false);
-  const [listTaskTodos, setListTaskTodos] = useState<TodosTaskInterface[]>([]);
 
-  useEffect(() => {
-    getTodosTask(TodosGroupData.id).then((response) =>
-      setListTaskTodos(response)
-    );
-  }, [TodosGroupData.id]);
+  const { data, isLoading, mutate } = useSWR<TodosTaskInterface[]>(
+    ["todos", TodosGroupData.id],
+    () => getTodosTask(TodosGroupData.id),
+    {
+      refreshInterval: 300000,
+    }
+  );
+
+  const updateData = () => {
+    mutate();
+  };
 
   const openNewTaskModalHandler = () => {
     setIsOpenNewTaskModal((open) => !open);
-  };
-
-  const updateListTask = () => {
-    getTodosTask(TodosGroupData.id).then((response) => {
-      setListTaskTodos(response);
-    });
   };
 
   return (
@@ -65,23 +65,27 @@ const CardTaskGroup = ({
           {TodosGroupData.description}
         </p>
         <div className="task-container flex flex-col gap-2">
-          {listTaskTodos.length <= 0 ? (
+          {isLoading && (
+            <div className="animate-pulse border-[1px] relative border-neutral-40 rounded-[4px] flex flex-col gap-2 p-4 bg-neutral-20">
+              <div className="h-8 w-full bg-neutral-40 rounded"></div>
+            </div>
+          )}
+          {data && data?.length <= 0 && !isLoading && (
             <div className="border-[1px] border-neutral-40 rounded-[4px] gap-2 py-2 px-4 bg-neutral-20">
               <p className="font-normal text-sm leading-6 text-neutral-70">
                 No Task
               </p>
             </div>
-          ) : (
-            listTaskTodos.map((task) => (
-              <React.Fragment key={task.id}>
-                <CardTask
-                  taskData={task}
-                  todos_group_id={TodosGroupData.id}
-                  update_state={updateListTask}
-                />
-              </React.Fragment>
-            ))
           )}
+          {data?.map((task) => (
+            <React.Fragment key={task.id}>
+              <CardTask
+                taskData={task}
+                todos_group_id={TodosGroupData.id}
+                update_state={updateData}
+              />
+            </React.Fragment>
+          ))}
         </div>
         <button
           className="w-fit flex items-center justify-center gap-1 cursor-pointer"
@@ -98,7 +102,7 @@ const CardTaskGroup = ({
           modal_handler={openNewTaskModalHandler}
           modal_type="new-task"
           todos_group_id={TodosGroupData.id}
-          update_state={updateListTask}
+          update_state={updateData}
         />
       )}
     </>
