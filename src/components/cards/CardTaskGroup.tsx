@@ -15,9 +15,11 @@ import useSWR, { mutate } from "swr";
 const CardTaskGroup = ({
   TodosGroupData,
   index,
+  lisIdGroup,
 }: {
   TodosGroupData: TodosGroupInterface;
   index: number;
+  lisIdGroup: number[];
 }) => {
   const [isOpenNewTaskModal, setIsOpenNewTaskModal] = useState(false);
 
@@ -32,7 +34,10 @@ const CardTaskGroup = ({
 
   const updateData = (newGroupId: number) => {
     mutateTask();
-    mutate(`/api/todos/${newGroupId}/items`);
+
+    if (lisIdGroup.includes(newGroupId)) {
+      mutate(`/api/todos/${newGroupId}/items`);
+    }
   };
 
   const openNewTaskModalHandler = () => {
@@ -84,6 +89,7 @@ const CardTaskGroup = ({
               <CardTask
                 taskData={task}
                 todos_group_id={TodosGroupData.id}
+                list_group_id={lisIdGroup}
                 update_state={updateData}
               />
             </React.Fragment>

@@ -11,12 +11,20 @@ const Dashboard = () => {
   const [listTodosGroup, setListTodosGroup] = useState<TodosGroupInterface[]>(
     []
   );
+  const [listIdGroup, setListIdGroup] = useState<number[]>([]);
 
   useEffect(() => {
     setIsLoading(true);
+
     getTodosGroup()
       .then((response: TodosGroupInterface[]) => {
-        setListTodosGroup(response);
+        const sortedData: TodosGroupInterface[] = response.sort(
+          (a, b) => a.id - b.id
+        );
+        setListTodosGroup(sortedData);
+
+        const idGroup: number[] = sortedData.map((data) => data.id);
+        setListIdGroup(idGroup);
       })
       .finally(() => setIsLoading(false));
   }, []);
@@ -48,7 +56,11 @@ const Dashboard = () => {
         <div className="task-grouping-container grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {listTodosGroup.map((group, index) => (
             <React.Fragment key={group.id}>
-              <CardTaskGroup TodosGroupData={group} index={index} />
+              <CardTaskGroup
+                TodosGroupData={group}
+                index={index}
+                lisIdGroup={listIdGroup}
+              />
             </React.Fragment>
           ))}
         </div>

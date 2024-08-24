@@ -27,20 +27,28 @@ const MenuTaskCard = (props: MenuTaskCardInterface) => {
   }, [handleClickOutside]);
 
   const moveTask = (moveTo: "left" | "right") => {
+    const listOfGroupId = props.list_group_id;
+    const indexOfGroupId = listOfGroupId.indexOf(props.todos_group_id);
     const newGroupId =
-      moveTo == "left" ? props.todos_group_id - 1 : props.todos_group_id + 1;
+      moveTo == "left"
+        ? listOfGroupId[indexOfGroupId - 1]
+        : listOfGroupId[indexOfGroupId + 1];
 
-    moveTodosTask({
-      todos_group_id: props.todos_group_id,
-      task_id: props.task_id,
-      moving_to: moveTo,
-      name: "",
-      progress_percentage: 0,
-    }).then(() => {
-      if (props.update_state) {
-        props.update_state(newGroupId);
-      }
-    });
+    if (newGroupId) {
+      moveTodosTask({
+        todos_group_id: props.todos_group_id,
+        task_id: props.task_id,
+        target_group_todo_id: newGroupId,
+        name: "",
+        progress_percentage: 0,
+      }).then(() => {
+        if (props.update_state) {
+          props.update_state(newGroupId);
+        }
+      });
+    } else {
+      alert("target group id tidak ditemukan");
+    }
   };
 
   return (

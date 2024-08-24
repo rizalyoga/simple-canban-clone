@@ -3,7 +3,7 @@ import { ModalNewTaskDataAPIInterface } from "../../../types/type";
 
 interface ModalPatchTaskInterface extends ModalNewTaskDataAPIInterface {
   task_id: number;
-  moving_to?: "left" | "right";
+  target_group_todo_id?: number;
 }
 
 const API_URL = import.meta.env.VITE_BASE_LINK_URL;
@@ -91,10 +91,7 @@ export const editTodosTask = async (payload: ModalPatchTaskInterface) => {
 
 export const moveTodosTask = async (payload: ModalPatchTaskInterface) => {
   const newData = {
-    target_todo_id:
-      payload.moving_to == "left"
-        ? payload.todos_group_id - 1
-        : payload.todos_group_id + 1,
+    target_todo_id: payload.target_group_todo_id,
   };
 
   try {

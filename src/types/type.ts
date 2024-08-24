@@ -33,13 +33,19 @@ export interface MenuTaskCardInterface {
   openEditModalHandler?: () => void;
   update_state?: (newGroupId: number) => void;
   task_id: number;
+  list_group_id: number[];
   todos_group_id: number;
 }
 
 export interface ModalPropsInterface {
   modal_handler: () => void;
   update_state?: (todos_group_id: number) => void;
-  modal_type?: "new-group" | "new-task" | "delete-task" | "edit-task";
+  modal_type?:
+    | "new-group"
+    | "new-task"
+    | "delete-task"
+    | "edit-task"
+    | "logout";
   todos_group_id?: number;
   task_id?: number;
   task_name?: string;

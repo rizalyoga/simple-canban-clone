@@ -94,7 +94,7 @@ const ModalNewTask = (props: ModalPropsInterface) => {
             className="input-form-style w-[143px]"
             name="progress"
             id="progress"
-            placeholder="70"
+            placeholder="70%"
             value={todosTaskData.progress}
             onChange={onChageHandler}
             required
