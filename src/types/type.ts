@@ -31,7 +31,7 @@ export interface MenuTaskCardInterface {
   openMenuHandler: () => void;
   openDeleteModalHandler?: () => void;
   openEditModalHandler?: () => void;
-  update_state?: () => void;
+  update_state?: (newGroupId: number) => void;
   task_id: number;
   todos_group_id: number;
 }
@@ -46,12 +46,12 @@ export interface ModalPropsInterface {
   progress_percentage?: number;
 }
 
-export interface ModalNewGroupDataInterface {
+export interface ModalNewGroupDataAPIInterface {
   title: string;
   description: string;
 }
 
-export interface ModalNewTaskDataInterface {
+export interface ModalNewTaskDataAPIInterface {
   name: string;
   progress_percentage: number;
   todos_group_id: number;

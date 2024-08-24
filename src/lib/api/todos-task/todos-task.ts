@@ -1,7 +1,7 @@
 import { getToken as token } from "../get-token";
-import { ModalNewTaskDataInterface } from "../../../types/type";
+import { ModalNewTaskDataAPIInterface } from "../../../types/type";
 
-interface ModalPatchTaskInterface extends ModalNewTaskDataInterface {
+interface ModalPatchTaskInterface extends ModalNewTaskDataAPIInterface {
   task_id: number;
   moving_to?: "left" | "right";
 }
@@ -29,7 +29,7 @@ export const getTodosTask = async (todosGroupId: number) => {
   }
 };
 
-export const postTodosTask = async (payload: ModalNewTaskDataInterface) => {
+export const postTodosTask = async (payload: ModalNewTaskDataAPIInterface) => {
   try {
     const response = await fetch(
       `${API_URL}/todos/${payload.todos_group_id}/items`,

@@ -27,6 +27,9 @@ const MenuTaskCard = (props: MenuTaskCardInterface) => {
   }, [handleClickOutside]);
 
   const moveTask = (moveTo: "left" | "right") => {
+    const newGroupId =
+      moveTo == "left" ? props.todos_group_id - 1 : props.todos_group_id + 1;
+
     moveTodosTask({
       todos_group_id: props.todos_group_id,
       task_id: props.task_id,
@@ -35,7 +38,7 @@ const MenuTaskCard = (props: MenuTaskCardInterface) => {
       progress_percentage: 0,
     }).then(() => {
       if (props.update_state) {
-        props.update_state();
+        props.update_state(newGroupId);
       }
     });
   };

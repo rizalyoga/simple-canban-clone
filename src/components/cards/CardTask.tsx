@@ -13,7 +13,7 @@ const CardTask = ({
   update_state,
 }: {
   taskData: TodosTaskInterface;
-  update_state?: () => void;
+  update_state?: (newGroupId: number) => void;
   todos_group_id: number;
 }) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);

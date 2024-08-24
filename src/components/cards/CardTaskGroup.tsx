@@ -10,7 +10,7 @@ import {
   getColorText,
 } from "../../lib/get-color";
 import clsx from "clsx";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 
 const CardTaskGroup = ({
   TodosGroupData,
@@ -21,16 +21,18 @@ const CardTaskGroup = ({
 }) => {
   const [isOpenNewTaskModal, setIsOpenNewTaskModal] = useState(false);
 
-  const { data, isLoading, mutate } = useSWR<TodosTaskInterface[]>(
-    ["todos", TodosGroupData.id],
-    () => getTodosTask(TodosGroupData.id),
-    {
-      refreshInterval: 300000,
-    }
+  const {
+    data,
+    isLoading,
+    mutate: mutateTask,
+  } = useSWR<TodosTaskInterface[]>(
+    `/api/todos/${TodosGroupData.id}/items`,
+    () => getTodosTask(TodosGroupData.id)
   );
 
-  const updateData = () => {
-    mutate();
+  const updateData = (newGroupId: number) => {
+    mutateTask();
+    mutate(`/api/todos/${newGroupId}/items`);
   };
 
   const openNewTaskModalHandler = () => {
