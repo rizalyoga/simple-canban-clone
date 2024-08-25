@@ -8,13 +8,17 @@ interface NavbarProps {
 
 const Navbar = (props: NavbarProps) => {
   const [isOpenNewGroupModal, setIsOpenNewGroupModal] = useState(false);
+  const [typeModal, setTypeModal] = useState<"logout" | "new-group">(
+    "new-group"
+  );
 
   const logoutHandler = () => {
-    sessionStorage.clear();
-    window.location.href = "/v1/login";
+    setTypeModal("logout");
+    setIsOpenNewGroupModal((open) => !open);
   };
 
   const newGroupModalHandler = () => {
+    setTypeModal("new-group");
     setIsOpenNewGroupModal((open) => !open);
   };
 
@@ -45,7 +49,7 @@ const Navbar = (props: NavbarProps) => {
       {isOpenNewGroupModal && (
         <ModalContainer
           modal_handler={newGroupModalHandler}
-          modal_type="new-group"
+          modal_type={typeModal}
           update_state={props.update_state}
         />
       )}

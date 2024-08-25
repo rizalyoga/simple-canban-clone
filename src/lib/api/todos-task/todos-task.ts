@@ -1,9 +1,9 @@
 import { getToken as token } from "../get-token";
-import { ModalNewTaskDataInterface } from "../../../types/type";
+import { ModalNewTaskDataAPIInterface } from "../../../types/type";
 
-interface ModalPatchTaskInterface extends ModalNewTaskDataInterface {
+interface ModalPatchTaskInterface extends ModalNewTaskDataAPIInterface {
   task_id: number;
-  moving_to?: "left" | "right";
+  target_group_todo_id?: number;
 }
 
 const API_URL = import.meta.env.VITE_BASE_LINK_URL;
@@ -29,7 +29,7 @@ export const getTodosTask = async (todosGroupId: number) => {
   }
 };
 
-export const postTodosTask = async (payload: ModalNewTaskDataInterface) => {
+export const postTodosTask = async (payload: ModalNewTaskDataAPIInterface) => {
   try {
     const response = await fetch(
       `${API_URL}/todos/${payload.todos_group_id}/items`,
@@ -91,10 +91,7 @@ export const editTodosTask = async (payload: ModalPatchTaskInterface) => {
 
 export const moveTodosTask = async (payload: ModalPatchTaskInterface) => {
   const newData = {
-    target_todo_id:
-      payload.moving_to == "left"
-        ? payload.todos_group_id - 1
-        : payload.todos_group_id + 1,
+    target_todo_id: payload.target_group_todo_id,
   };
 
   try {

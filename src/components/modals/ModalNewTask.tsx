@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-  ModalNewTaskDataInterface,
+  ModalNewTaskDataAPIInterface,
   ModalPropsInterface,
 } from "../../types/type";
 import { postTodosTask } from "../../lib/api/todos-task/todos-task";
@@ -31,7 +31,7 @@ const ModalNewTask = (props: ModalPropsInterface) => {
 
     const validProgressValues = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
     if (validProgressValues.includes(progressValue)) {
-      const newTask: ModalNewTaskDataInterface = {
+      const newTask: ModalNewTaskDataAPIInterface = {
         name: todosTaskData.taks_name,
         todos_group_id: props.todos_group_id as number,
         progress_percentage: progressValue,
@@ -94,7 +94,7 @@ const ModalNewTask = (props: ModalPropsInterface) => {
             className="input-form-style w-[143px]"
             name="progress"
             id="progress"
-            placeholder="70"
+            placeholder="70%"
             value={todosTaskData.progress}
             onChange={onChageHandler}
             required

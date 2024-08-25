@@ -1,5 +1,5 @@
 import { getToken as token } from "../get-token";
-import { ModalNewGroupDataInterface } from "../../../types/type";
+import { ModalNewGroupDataAPIInterface } from "../../../types/type";
 
 const API_URL = import.meta.env.VITE_BASE_LINK_URL;
 
@@ -24,7 +24,9 @@ export const getTodosGroup = async () => {
   }
 };
 
-export const postTodosGroup = async (payload: ModalNewGroupDataInterface) => {
+export const postTodosGroup = async (
+  payload: ModalNewGroupDataAPIInterface
+) => {
   try {
     const response = await fetch(`${API_URL}/todos`, {
       method: "POST",

@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 import { PostRegister } from "../../lib/api/post-auth";
 import { RegisterInterface } from "../../types/type";
 import clsx from "clsx";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const RegisterForm = () => {
   const [isErrorMessage, setIsErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isShowPassword, setIsShowPassword] = useState(false);
+  const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
   const [registerData, setRegisterData] = useState<RegisterInterface>({
     name: "",
     email: "",
@@ -39,6 +42,35 @@ const RegisterForm = () => {
       })
       .finally(() => setIsLoading(false));
   };
+
+  const onShowPasswordHandler = (
+    style: string,
+    typeInput: "password" | "confirm-password"
+  ) => {
+    const isVisible =
+      typeInput === "password" ? isShowPassword : isShowConfirmPassword;
+
+    return isVisible ? (
+      <AiFillEyeInvisible
+        onClick={() => showPasswordVisible(typeInput)}
+        className={style}
+      />
+    ) : (
+      <AiFillEye
+        onClick={() => showPasswordVisible(typeInput)}
+        className={style}
+      />
+    );
+  };
+
+  const showPasswordVisible = (typeInput: "password" | "confirm-password") => {
+    if (typeInput === "password") {
+      setIsShowPassword((visible) => !visible);
+    } else {
+      setIsShowConfirmPassword((visible) => !visible);
+    }
+  };
+
   return (
     <div className="modal-container-style">
       <div className="head-form p-6">
@@ -77,29 +109,41 @@ const RegisterForm = () => {
           <label className="label-form-style" htmlFor="password">
             Password
           </label>
-          <input
-            className="input-form-style"
-            type="password"
-            name="password"
-            id="password"
-            placeholder="password"
-            onChange={onChageHandler}
-            required
-          />
+          <span className="relative flex">
+            <input
+              className="input-form-style w-full"
+              type={isShowPassword ? "text" : "password"}
+              name="password"
+              id="password"
+              placeholder="password"
+              onChange={onChageHandler}
+              required
+            />
+            {onShowPasswordHandler(
+              "absolute text-xl mt-2 text-neutral-70 mr-2 right-0 cursor-pointer",
+              "password"
+            )}
+          </span>
         </div>
         <div className="password-form-input div-input-style">
           <label className="label-form-style" htmlFor="password_confirmation">
             Confirm Password
           </label>
-          <input
-            className="input-form-style"
-            type="password"
-            name="password_confirmation"
-            id="password_confirmation"
-            placeholder="password confirmation"
-            onChange={onChageHandler}
-            required
-          />
+          <span className="relative flex">
+            <input
+              className="input-form-style w-full"
+              type={isShowConfirmPassword ? "text" : "password"}
+              name="password_confirmation"
+              id="password_confirmation"
+              placeholder="password confirmation"
+              onChange={onChageHandler}
+              required
+            />
+            {onShowPasswordHandler(
+              "absolute text-xl mt-2 text-neutral-70 mr-2 right-0 cursor-pointer",
+              "confirm-password"
+            )}
+          </span>
         </div>
         <p className="text-xs text-red-500 mb-6">{isErrorMessage}</p>
         <input

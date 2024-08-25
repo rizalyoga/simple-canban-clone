@@ -11,10 +11,12 @@ const CardTask = ({
   taskData,
   todos_group_id,
   update_state,
+  list_group_id,
 }: {
   taskData: TodosTaskInterface;
-  update_state?: () => void;
+  update_state?: (newGroupId: number) => void;
   todos_group_id: number;
+  list_group_id: number[];
 }) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenDeleteModal, setIsDeleteModal] = useState(false);
@@ -60,6 +62,7 @@ const CardTask = ({
               task_id={taskData.id}
               todos_group_id={todos_group_id}
               update_state={update_state}
+              list_group_id={list_group_id}
             />
           )}
           {isOpenEditModal && (

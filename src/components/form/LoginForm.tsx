@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { PostLogin } from "../../lib/api/post-auth";
 import { AuthInputInterface as LoginDataInterface } from "../../types/type";
 import clsx from "clsx";
@@ -7,6 +8,7 @@ import clsx from "clsx";
 const LoginForm = () => {
   const [isErrorMessage, setIsErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isShowPassword, setIsShowPassword] = useState(false);
   const [loginData, setLoginData] = useState<LoginDataInterface>({
     email: "",
     password: "",
@@ -38,6 +40,18 @@ const LoginForm = () => {
       .finally(() => setIsLoading(false));
   };
 
+  const onShowPasswordHandler = (style: string) => {
+    return !isShowPassword ? (
+      <AiFillEye onClick={showPasswordVisible} className={style} />
+    ) : (
+      <AiFillEyeInvisible onClick={showPasswordVisible} className={style} />
+    );
+  };
+
+  const showPasswordVisible = () => {
+    setIsShowPassword((visible) => !visible);
+  };
+
   return (
     <div className="modal-container-style">
       <div className="head-form p-6">
@@ -66,16 +80,21 @@ const LoginForm = () => {
           >
             Password
           </label>
-          <input
-            className="input-form-style"
-            type="password"
-            name="password"
-            id="password"
-            placeholder="password"
-            value={loginData.password}
-            onChange={onChageHandler}
-            required
-          />
+          <span className="relative flex">
+            <input
+              className="input-form-style w-full"
+              type={isShowPassword ? "text" : "password"}
+              name="password"
+              id="password"
+              placeholder="password"
+              value={loginData.password}
+              onChange={onChageHandler}
+              required
+            />
+            {onShowPasswordHandler(
+              "absolute text-xl mt-2 text-neutral-70 mr-2 right-0 cursor-pointer"
+            )}
+          </span>
         </div>
         <p className="text-xs text-red-500 mb-6">{isErrorMessage}</p>
         <input
