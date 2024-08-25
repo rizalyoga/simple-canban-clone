@@ -19,7 +19,7 @@ const ModalLogoutConfirmation = (props: ModalPropsInterface) => {
       <div className="head-div-modal-style pt-6 px-6">
         <span className="flex justify-center items-center gap-2">
           <img className="cursor-pointer" src={AlertIcon} alt="alert-icon" />
-          <p className="title-form-style">Delete Task</p>
+          <p className="title-form-style">Log Out</p>
         </span>
         <img
           className="cursor-pointer"
@@ -29,7 +29,7 @@ const ModalLogoutConfirmation = (props: ModalPropsInterface) => {
         />
       </div>
       <p className="text-sm leading-6 font-normal text-neutral-90 px-6">
-        Are you sure want to delete this task? Your action cant be reverted.
+        Are you sure want to leave?
       </p>
       <div className="buttons-container w-full flex gap-[10px] justify-end pt-4 pb-6 px-6">
         <button className="cancel-btn" onClick={onCancelHandler}>
