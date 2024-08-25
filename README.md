@@ -4,7 +4,7 @@ The Kanban Clone project is a web application designed to replicate the core fun
 
 ## ✨ Demo
 
-Here is a working live demo : https://simple-canban-clone-rakamin.vercel.app/
+Here is a working live demo : https://simple-canban-clone.vercel.app/
 
 <!-- ## 🎥 Video Demo
 
