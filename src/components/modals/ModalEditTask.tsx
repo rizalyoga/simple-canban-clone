@@ -11,8 +11,11 @@ const ModalEditTask = (props: ModalPropsInterface) => {
     taks_name: props.task_name,
     progress: props.progress_percentage?.toString(),
   });
+  const validProgressValues = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
-  const onChageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChageHandler = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const value = e.target.value;
 
     setTodosTaskData({
@@ -26,7 +29,6 @@ const ModalEditTask = (props: ModalPropsInterface) => {
     setIsLoading(true);
     const progressValue = parseInt(todosTaskData.progress as string);
 
-    const validProgressValues = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
     if (validProgressValues.includes(progressValue)) {
       const newTask = {
         name: todosTaskData.taks_name as string,
@@ -88,15 +90,23 @@ const ModalEditTask = (props: ModalPropsInterface) => {
           <label className="label-form-style" htmlFor="progress">
             Progress
           </label>
-          <input
-            className="input-form-style w-[143px]"
+          <select
+            className="input-form-style w-[143px] appearance-none"
             name="progress"
             id="progress"
-            placeholder="70"
             value={todosTaskData.progress}
             onChange={onChageHandler}
             required
-          />
+          >
+            <option value="" disabled>
+              70%
+            </option>
+            {validProgressValues.map((value) => (
+              <option key={value} value={value}>
+                {value}%
+              </option>
+            ))}
+          </select>
         </div>
         <p className="error-text-form-style">{isErrorMessage}</p>
         <div className="buttons-container pb-6 w-full flex gap-[10px] justify-end">

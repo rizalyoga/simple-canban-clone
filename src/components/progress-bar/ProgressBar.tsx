@@ -7,7 +7,7 @@ const ProgressBar = ({ progress }: { progress: number }) => {
       <div className="w-full bg-neutral-30 rounded-full h-4 ">
         <div
           className={clsx(
-            "h-4",
+            "h-4 transition-all duration-1000",
             progress < 100
               ? "bg-primary_main rounded-l-full"
               : "bg-success_main rounded-full"
