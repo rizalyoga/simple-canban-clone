@@ -27,9 +27,11 @@ const Navbar = (props: NavbarProps) => {
       <nav className="h-16 bg-neutral-10 border-b-2 border-b-neutral-40 flex items-center justify-center">
         <div className="w-full mx-6 flex justify-between items-center">
           <div className="left-content flex justify-center items-center gap-[10px]">
-            <p className="font-bold text-lg text-start">Product Roadmap</p>
+            <p className="font-bold text-xs text-start md:text-lg">
+              Product Roadmap
+            </p>
             <button
-              className="bg-primary_main text-white text-xs text-center font-bold leading-5 rounded-lg transition duration-[.2s] px-4 py-1 hover:bg-primary_border"
+              className="bg-primary_main text-white text-[10px] text-center font-semibold leading-5 rounded-lg transition duration-[.2s] px-4 py-1 mr-1 hover:bg-primary_border md:text-xs md:font-bold md:mr-0"
               onClick={newGroupModalHandler}
             >
               <span className="font-extrabold text-sm">+</span> Add New Group
@@ -37,7 +39,7 @@ const Navbar = (props: NavbarProps) => {
           </div>
           <button
             className={clsx(
-              "font-submit-btn-style text-neutral-10 bg-danger_main",
+              "font-submit-btn-style text-xs text-neutral-10 bg-danger_main md:text-sm",
               "hover:bg-danger_border hover:text-neutral-100"
             )}
             onClick={logoutHandler}

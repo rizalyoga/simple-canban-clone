@@ -11,6 +11,7 @@ import {
 } from "../../lib/get-color";
 import clsx from "clsx";
 import useSWR, { mutate } from "swr";
+import { Droppable } from "react-beautiful-dnd";
 
 const CardTaskGroup = ({
   TodosGroupData,
@@ -84,23 +85,35 @@ const CardTaskGroup = ({
               </p>
             </div>
           )}
-          {data?.map((task) => (
-            <React.Fragment key={task.id}>
-              <CardTask
-                taskData={task}
-                todos_group_id={TodosGroupData.id}
-                list_group_id={lisIdGroup}
-                update_state={updateData}
-              />
-            </React.Fragment>
-          ))}
+          <Droppable droppableId={TodosGroupData.id.toString()}>
+            {(provided) => (
+              <div
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+                className="task-container flex flex-col gap-2"
+              >
+                {data?.map((task, taskIndex) => (
+                  <React.Fragment key={task.id}>
+                    <CardTask
+                      taskData={task}
+                      todos_group_id={TodosGroupData.id}
+                      list_group_id={lisIdGroup}
+                      update_state={updateData}
+                      index={taskIndex}
+                    />
+                  </React.Fragment>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
         </div>
         <button
           className="w-fit flex items-center justify-center gap-1 cursor-pointer"
           onClick={openNewTaskModalHandler}
         >
           <img src={NewTaskIcon} alt="new-task-icon" />
-          <p className="font-normal text-xs leading-5 mt-1 text-neutral-100 ">
+          <p className="font-normal text-xs leading-5 text-neutral-100 ">
             New Task
           </p>
         </button>

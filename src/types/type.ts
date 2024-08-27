@@ -15,6 +15,7 @@ export interface TodosGroupInterface {
   created_at: string;
   updated_at: string;
   description: string;
+  tasks: TodosTaskInterface[];
 }
 
 export interface TodosTaskInterface {

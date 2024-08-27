@@ -4,7 +4,7 @@ import ChecklistSVG from "../../assets/icons/checklist.svg";
 const ProgressBar = ({ progress }: { progress: number }) => {
   return (
     <div className="progress-content flex gap-3 justify-center items-center w-full">
-      <div className="w-full bg-neutral-30 rounded-full h-4 ">
+      <div className="w-full bg-neutral-30 rounded-full h-4">
         <div
           className={clsx(
             "h-4 transition-all duration-1000",
