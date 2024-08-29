@@ -12,6 +12,7 @@ import {
 import clsx from "clsx";
 import useSWR, { mutate } from "swr";
 import { Droppable } from "react-beautiful-dnd";
+import { useToast } from "../toast/ToastContext";
 
 const CardTaskGroup = ({
   TodosGroupData,
@@ -23,7 +24,7 @@ const CardTaskGroup = ({
   lisIdGroup: number[];
 }) => {
   const [isOpenNewTaskModal, setIsOpenNewTaskModal] = useState(false);
-
+  const { showToast } = useToast();
   const {
     data,
     isLoading,
@@ -37,7 +38,13 @@ const CardTaskGroup = ({
     mutateTask();
 
     if (lisIdGroup.includes(newGroupId)) {
-      mutate(`/api/todos/${newGroupId}/items`);
+      mutate(`/api/todos/${newGroupId}/items`)
+        .then(() => {
+          showToast("task successfully moved", "success");
+        })
+        .catch(() => {
+          showToast("Failed to move task", "error");
+        });
     }
   };
 

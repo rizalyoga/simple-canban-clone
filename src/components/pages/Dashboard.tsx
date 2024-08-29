@@ -8,6 +8,7 @@ import { moveTodosTask } from "../../lib/api/todos-task/todos-task";
 import { TodosGroupInterface } from "../../types/type";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { mutate } from "swr";
+import { useToast } from "../toast/ToastContext";
 
 const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,6 +16,7 @@ const Dashboard = () => {
     []
   );
   const [listIdGroup, setListIdGroup] = useState<number[]>([]);
+  const { showToast } = useToast();
 
   useEffect(() => {
     setIsLoading(true);
@@ -53,24 +55,29 @@ const Dashboard = () => {
     const destGroupId = parseInt(destination.droppableId);
     const taskId = parseInt(draggableId);
 
-    // Optimistic update
-    // setListTodosGroup((prevGroups) => {
-    //   const newGroups = [...prevGroups];
-    //   const sourceGroup = newGroups.find((g) => g.id === sourceGroupId);
-    //   const destGroup = newGroups.find((g) => g.id === destGroupId);
+    setListTodosGroup((prevGroups) => {
+      const newGroups = [...prevGroups];
+      const sourceGroupIndex = newGroups.findIndex(
+        (g) => g.id === sourceGroupId
+      );
+      const destGroupIndex = newGroups.findIndex((g) => g.id === destGroupId);
 
-    //   if (sourceGroup && destGroup) {
-    //     const [movedTask] = sourceGroup.tasks.splice(source.index, 1);
-    //     destGroup.tasks.splice(destination.index, 0, {
-    //       ...movedTask,
-    //       todo_id: destGroupId,
-    //     });
-    //   }
+      if (sourceGroupIndex !== -1 && destGroupIndex !== -1) {
+        const sourceGroup = newGroups[sourceGroupIndex];
+        const destGroup = newGroups[destGroupIndex];
 
-    //   return newGroups;
-    // });
+        if (sourceGroup.tasks && destGroup.tasks) {
+          const [movedTask] = sourceGroup.tasks.splice(source.index, 1);
+          destGroup.tasks.splice(destination.index, 0, {
+            ...movedTask,
+            todo_id: destGroupId,
+          });
+        }
+      }
 
-    // Update server
+      return newGroups;
+    });
+
     try {
       await moveTodosTask({
         todos_group_id: sourceGroupId,
@@ -81,10 +88,10 @@ const Dashboard = () => {
       }).then(() => {
         mutate(`/api/todos/${sourceGroupId}/items`);
         mutate(`/api/todos/${destGroupId}/items`);
+        showToast(`task successfully moved`, "success");
       });
     } catch (error) {
-      console.error("Failed to move task:", error);
-      // Revert changes if update fails
+      showToast(`Failed to move task : ${error}`, "error");
       getTodosGroup().then(setListTodosGroup);
     }
   };

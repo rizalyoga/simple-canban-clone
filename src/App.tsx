@@ -3,6 +3,8 @@ import LoginPage from "./components/pages/LoginPage";
 import RegisterPage from "./components/pages/RegisterPage";
 import MainPage from "./components/pages/MainPage";
 import Dashboard from "./components/pages/Dashboard";
+import { ToastProvider } from "./components/toast/ToastContext";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const Router = createBrowserRouter([
@@ -24,9 +26,12 @@ function App() {
     },
   ]);
   return (
-    <div className="bg-light_background dark:bg-dark_background transition">
-      <RouterProvider router={Router} />
-    </div>
+    <ToastProvider>
+      <div className="bg-light_background dark:bg-dark_background transition">
+        <Toaster position="top-center" />
+        <RouterProvider router={Router} />
+      </div>
+    </ToastProvider>
   );
 }
 

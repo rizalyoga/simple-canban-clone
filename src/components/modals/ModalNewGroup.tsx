@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ModalPropsInterface } from "../../types/type";
 import { postTodosGroup } from "../../lib/api/todos-group/todos-group";
 import clsx from "clsx";
+import { useToast } from "../toast/ToastContext";
 
 const ModalNewGroup = (props: ModalPropsInterface) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -9,6 +10,7 @@ const ModalNewGroup = (props: ModalPropsInterface) => {
     title: "",
     description: "",
   });
+  const { showToast } = useToast();
 
   const onChageHandler = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -32,8 +34,15 @@ const ModalNewGroup = (props: ModalPropsInterface) => {
           }
         }
       })
-      .then(() => setIsLoading(false))
-      .then(() => props.modal_handler());
+      .then(() => {
+        setIsLoading(false);
+        showToast("New group successfully created", "success");
+      })
+      .then(() => props.modal_handler())
+      .catch(() => {
+        setIsLoading(false);
+        showToast("Failed for create new group", "error");
+      });
   };
 
   const onCancelHandler = () => {
