@@ -1,4 +1,4 @@
-# Simple Canban Clone
+# Simple Kanban Clone
 
 The Kanban Clone project is a web application designed to replicate the core functions and features of a Kanban board, commonly used for task and project management. This application is built using React.js for the user interface, TypeScript to ensure strong, bug-free code, Tailwind CSS for efficient styling, Vite as a fast bundler, SWR for responsive and consistent API data fetching, and Vercel for deployment.
 

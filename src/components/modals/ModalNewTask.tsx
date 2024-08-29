@@ -6,6 +6,7 @@ import {
 import { postTodosTask } from "../../lib/api/todos-task/todos-task";
 import clsx from "clsx";
 import CloseIcon from "../../assets/icons/close-icon.svg";
+import { useToast } from "../toast/ToastContext";
 
 const ModalNewTask = (props: ModalPropsInterface) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,8 +15,12 @@ const ModalNewTask = (props: ModalPropsInterface) => {
     taks_name: "",
     progress: "",
   });
+  const { showToast } = useToast();
+  const validProgressValues = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
-  const onChageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChageHandler = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const value = e.target.value;
 
     setTodosTaskData({
@@ -24,12 +29,13 @@ const ModalNewTask = (props: ModalPropsInterface) => {
     });
   };
 
-  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmitHandler = (
+    e: React.FormEvent<HTMLFormElement | HTMLSelectElement>
+  ) => {
     e.preventDefault();
     setIsLoading(true);
     const progressValue = parseInt(todosTaskData.progress);
 
-    const validProgressValues = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
     if (validProgressValues.includes(progressValue)) {
       const newTask: ModalNewTaskDataAPIInterface = {
         name: todosTaskData.taks_name,
@@ -45,8 +51,14 @@ const ModalNewTask = (props: ModalPropsInterface) => {
             }
           }
         })
-        .then(() => setIsLoading(false))
-        .then(() => props.modal_handler());
+        .then(() => {
+          showToast("New task successfully created", "success");
+        })
+        .then(() => props.modal_handler())
+        .catch(() => {
+          setIsLoading(false);
+          showToast("Failed for create new task", "error");
+        });
     } else {
       setIsErrorMessage(
         "The progress range is only from 10, 20, 30, 40 ... 100"
@@ -90,15 +102,23 @@ const ModalNewTask = (props: ModalPropsInterface) => {
           <label className="label-form-style" htmlFor="progress">
             Progress
           </label>
-          <input
-            className="input-form-style w-[143px]"
+          <select
+            className="input-form-style w-[143px] appearance-none"
             name="progress"
             id="progress"
-            placeholder="70%"
             value={todosTaskData.progress}
             onChange={onChageHandler}
             required
-          />
+          >
+            <option value="" disabled>
+              70%
+            </option>
+            {validProgressValues.map((value) => (
+              <option key={value} value={value}>
+                {value}%
+              </option>
+            ))}
+          </select>
         </div>
         <p className="error-text-form-style">{isErrorMessage}</p>
         <div className="buttons-container pb-6 w-full flex gap-[10px] justify-end">

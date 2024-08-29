@@ -3,12 +3,13 @@ import { ModalPropsInterface } from "../../types/type";
 import CloseIcon from "../../assets/icons/close-icon.svg";
 import AlertIcon from "../../assets/icons/alert-icon.svg";
 import clsx from "clsx";
-
+import { useToast } from "../toast/ToastContext";
 import { deleteTodosTask } from "../../lib/api/todos-task/todos-task";
 
 const ModalDeleteConfirmation = (props: ModalPropsInterface) => {
   const [isLoading, setIsLoading] = useState(false);
   const isOpenMenuHandler = () => props.modal_handler();
+  const { showToast } = useToast();
 
   const deleteTaskHandler = () => {
     setIsLoading(true);
@@ -23,8 +24,15 @@ const ModalDeleteConfirmation = (props: ModalPropsInterface) => {
           }
         }
       })
-      .then(() => setIsLoading(false))
-      .then(() => isOpenMenuHandler());
+      .then(() => {
+        setIsLoading(false);
+        showToast("Task successfully deleted", "success");
+      })
+      .then(() => isOpenMenuHandler())
+      .catch(() => {
+        setIsLoading(false);
+        showToast("Failed to delete task", "error");
+      });
   };
 
   const onCancelHandler = () => {

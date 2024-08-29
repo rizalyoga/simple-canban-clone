@@ -6,9 +6,11 @@ import EditIcon from "../../assets/icons/edit-icon.svg";
 import TrashIcon from "../../assets/icons/trash-icon.svg";
 import { MenuTaskCardInterface } from "../../types/type";
 import { moveTodosTask } from "../../lib/api/todos-task/todos-task";
+import { useToast } from "../toast/ToastContext";
 
 const MenuTaskCard = (props: MenuTaskCardInterface) => {
   const menuRef = useRef<HTMLDivElement | null>(null);
+  const { showToast } = useToast();
 
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
@@ -47,7 +49,7 @@ const MenuTaskCard = (props: MenuTaskCardInterface) => {
         }
       });
     } else {
-      alert("target group id tidak ditemukan");
+      showToast("Target group not found", "error");
     }
   };
 
