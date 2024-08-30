@@ -36,7 +36,12 @@ const Dashboard = () => {
 
   const updateTodosGroup = () => {
     getTodosGroup().then((response: TodosGroupInterface[]) => {
-      setListTodosGroup(response);
+      const sortedData: TodosGroupInterface[] = response.sort(
+        (a, b) => a.id - b.id
+      );
+      setListTodosGroup(sortedData);
+      const idGroup: number[] = sortedData.map((data) => data.id);
+      setListIdGroup(idGroup);
     });
   };
 

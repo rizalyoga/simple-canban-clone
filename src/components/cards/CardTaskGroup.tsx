@@ -73,7 +73,7 @@ const CardTaskGroup = ({
               getColorText(index)
             )}
           >
-            {TodosGroupData.title}
+            {TodosGroupData.title} - {TodosGroupData.id}
           </p>
         </span>
         <p className="text-xs leading-5 font-bold text-neutral-90">
