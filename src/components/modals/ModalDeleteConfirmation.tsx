@@ -20,15 +20,13 @@ const ModalDeleteConfirmation = (props: ModalPropsInterface) => {
       .then((res) => {
         if (res) {
           if (props.update_state) {
-            props.update_state(props.todos_group_id as number);
+            props.update_state(props.todos_group_id as number, "delete");
+            setIsLoading(false);
+            showToast("Task successfully deleted", "success");
+            isOpenMenuHandler();
           }
         }
       })
-      .then(() => {
-        setIsLoading(false);
-        showToast("Task successfully deleted", "success");
-      })
-      .then(() => isOpenMenuHandler())
       .catch(() => {
         setIsLoading(false);
         showToast("Failed to delete task", "error");

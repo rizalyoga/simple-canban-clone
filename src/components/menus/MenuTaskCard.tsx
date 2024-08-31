@@ -45,7 +45,7 @@ const MenuTaskCard = (props: MenuTaskCardInterface) => {
         progress_percentage: 0,
       }).then(() => {
         if (props.update_state) {
-          props.update_state(newGroupId);
+          props.update_state(newGroupId, "move");
         }
       });
     } else {
