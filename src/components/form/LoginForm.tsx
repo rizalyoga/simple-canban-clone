@@ -105,7 +105,7 @@ const LoginForm = () => {
               : "bg-primary_main hover:bg-primary_border"
           )}
           type="submit"
-          value={isLoading ? "Wait..." : "Login"}
+          value={isLoading ? "Please wait..." : "Login"}
           disabled={isLoading}
         />
       </form>

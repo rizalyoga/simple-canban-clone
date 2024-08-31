@@ -154,7 +154,7 @@ const RegisterForm = () => {
               : "bg-primary_main hover:bg-primary_border"
           )}
           type="submit"
-          value={"Register"}
+          value={isLoading ? "Please wait..." : "Register"}
         />
       </form>
       <p className="p-6 text-center text-xs text-[#404040]">
