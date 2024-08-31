@@ -43,15 +43,13 @@ const ModalEditTask = (props: ModalPropsInterface) => {
         .then((res) => {
           if (res) {
             if (props.update_state) {
-              props.update_state(props.todos_group_id as number);
+              props.update_state(props.todos_group_id as number, "edit");
+              setIsLoading(false);
+              showToast("Task successfully edited", "success");
+              props.modal_handler();
             }
           }
         })
-        .then(() => {
-          setIsLoading(false);
-          showToast("Task successfully edited", "success");
-        })
-        .then(() => props.modal_handler())
         .catch(() => {
           setIsLoading(false);
           showToast("Failed to edit task", "error");

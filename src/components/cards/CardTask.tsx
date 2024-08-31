@@ -15,7 +15,7 @@ const CardTask = ({
   index,
 }: {
   taskData: TodosTaskInterface;
-  update_state?: (newGroupId: number) => void;
+  update_state?: (newGroupId: number, action: string) => void;
   todos_group_id: number;
   list_group_id: number[];
   index: number;

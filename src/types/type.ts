@@ -32,7 +32,7 @@ export interface MenuTaskCardInterface {
   openMenuHandler: () => void;
   openDeleteModalHandler?: () => void;
   openEditModalHandler?: () => void;
-  update_state?: (newGroupId: number) => void;
+  update_state?: (newGroupId: number, action: string) => void;
   task_id: number;
   list_group_id: number[];
   todos_group_id: number;
@@ -40,7 +40,7 @@ export interface MenuTaskCardInterface {
 
 export interface ModalPropsInterface {
   modal_handler: () => void;
-  update_state?: (todos_group_id: number) => void;
+  update_state?: (todos_group_id: number, action: string) => void;
   modal_type?:
     | "new-group"
     | "new-task"

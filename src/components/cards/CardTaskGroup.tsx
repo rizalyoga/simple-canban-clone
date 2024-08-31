@@ -34,16 +34,15 @@ const CardTaskGroup = ({
     () => getTodosTask(TodosGroupData.id)
   );
 
-  const updateData = (newGroupId: number) => {
+  const updateData = (newGroupId: number, action: string) => {
     mutateTask();
-
     if (lisIdGroup.includes(newGroupId)) {
       mutate(`/api/todos/${newGroupId}/items`)
         .then(() => {
-          showToast("task successfully moved", "success");
+          if (action == "move") showToast("Task successfully moved", "success");
         })
         .catch(() => {
-          showToast("Failed to move task", "error");
+          if (action == "move") showToast("Failed to move task", "error");
         });
     }
   };
@@ -73,7 +72,7 @@ const CardTaskGroup = ({
               getColorText(index)
             )}
           >
-            {TodosGroupData.title}
+            {TodosGroupData.title} - {TodosGroupData.id}
           </p>
         </span>
         <p className="text-xs leading-5 font-bold text-neutral-90">

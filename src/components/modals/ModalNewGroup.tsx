@@ -30,15 +30,13 @@ const ModalNewGroup = (props: ModalPropsInterface) => {
       .then((res) => {
         if (res) {
           if (props.update_state) {
-            props.update_state(props.todos_group_id as number);
+            props.update_state(props.todos_group_id as number, "create");
+            setIsLoading(false);
+            showToast("New group successfully created", "success");
+            props.modal_handler();
           }
         }
       })
-      .then(() => {
-        setIsLoading(false);
-        showToast("New group successfully created", "success");
-      })
-      .then(() => props.modal_handler())
       .catch(() => {
         setIsLoading(false);
         showToast("Failed for create new group", "error");

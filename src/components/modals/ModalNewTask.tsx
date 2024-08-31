@@ -47,7 +47,7 @@ const ModalNewTask = (props: ModalPropsInterface) => {
         .then((res) => {
           if (res) {
             if (props.update_state) {
-              props.update_state(props.todos_group_id as number);
+              props.update_state(props.todos_group_id as number, "create");
             }
           }
         })

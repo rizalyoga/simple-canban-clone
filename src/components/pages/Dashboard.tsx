@@ -8,7 +8,7 @@ import { moveTodosTask } from "../../lib/api/todos-task/todos-task";
 import { TodosGroupInterface } from "../../types/type";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { mutate } from "swr";
-import { useToast } from "../toast/ToastContext";
+import toast from "react-hot-toast";
 
 const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,7 +16,6 @@ const Dashboard = () => {
     []
   );
   const [listIdGroup, setListIdGroup] = useState<number[]>([]);
-  const { showToast } = useToast();
 
   useEffect(() => {
     setIsLoading(true);
@@ -36,7 +35,12 @@ const Dashboard = () => {
 
   const updateTodosGroup = () => {
     getTodosGroup().then((response: TodosGroupInterface[]) => {
-      setListTodosGroup(response);
+      const sortedData: TodosGroupInterface[] = response.sort(
+        (a, b) => a.id - b.id
+      );
+      setListTodosGroup(sortedData);
+      const idGroup: number[] = sortedData.map((data) => data.id);
+      setListIdGroup(idGroup);
     });
   };
 
@@ -85,13 +89,22 @@ const Dashboard = () => {
         target_group_todo_id: destGroupId,
         name: "",
         progress_percentage: 0,
-      }).then(() => {
-        mutate(`/api/todos/${sourceGroupId}/items`);
-        mutate(`/api/todos/${destGroupId}/items`);
-        showToast(`task successfully moved`, "success");
       });
+
+      toast.promise(
+        Promise.all([
+          mutate(`/api/todos/${sourceGroupId}/items`),
+          mutate(`/api/todos/${destGroupId}/items`),
+        ]),
+        {
+          loading: "please wait...",
+          success: "Task successfully moved",
+          error: "Failed to move task",
+        }
+      );
     } catch (error) {
-      showToast(`Failed to move task : ${error}`, "error");
+      console.error("Error moving task:", error);
+      toast.error(`Failed to move task : ${error}`);
       getTodosGroup().then(setListTodosGroup);
     }
   };
