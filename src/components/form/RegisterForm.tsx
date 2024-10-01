@@ -30,10 +30,9 @@ const RegisterForm = () => {
     e.preventDefault();
     setIsLoading(true);
     PostRegister(registerData)
-      .then((result) => {
-        sessionStorage.setItem("auth_token", JSON.stringify(result.auth_token));
+      .then(() => {
         setTimeout(() => {
-          window.location.href = "/v1/dashboard";
+          window.location.href = "/v1/login";
         }, 500);
       })
       .catch((err) => {

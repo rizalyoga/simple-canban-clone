@@ -28,7 +28,15 @@ const LoginForm = () => {
     setIsLoading(true);
     PostLogin(loginData)
       .then((result) => {
-        sessionStorage.setItem("auth_token", JSON.stringify(result.auth_token));
+        sessionStorage.setItem("auth_token", JSON.stringify(result.data.jwt));
+        sessionStorage.setItem(
+          "user_data",
+          JSON.stringify({
+            user_id: result.data.user_id,
+            name: result.data.name,
+            email: result.data.email,
+          })
+        );
         setTimeout(() => {
           window.location.href = "/v1/dashboard";
         }, 500);
