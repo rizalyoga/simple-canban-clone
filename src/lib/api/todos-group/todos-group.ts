@@ -5,7 +5,7 @@ const API_URL = import.meta.env.VITE_BASE_LINK_URL;
 
 export const getTodosGroup = async () => {
   try {
-    const response = await fetch(`${API_URL}/todos`, {
+    const response = await fetch(`${API_URL}/api/todos`, {
       headers: {
         Authorization: `Bearer ${token?.slice(1, -1)}`,
       },
@@ -28,7 +28,7 @@ export const postTodosGroup = async (
   payload: ModalNewGroupDataAPIInterface
 ) => {
   try {
-    const response = await fetch(`${API_URL}/todos`, {
+    const response = await fetch(`${API_URL}/api/todos`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
