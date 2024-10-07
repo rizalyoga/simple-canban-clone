@@ -10,7 +10,7 @@ const API_URL = import.meta.env.VITE_BASE_LINK_URL;
 
 export const getTodosTask = async (todosGroupId: number) => {
   try {
-    const response = await fetch(`${API_URL}/todos/${todosGroupId}/items`, {
+    const response = await fetch(`${API_URL}/api/todos/${todosGroupId}/items`, {
       headers: {
         Authorization: `Bearer ${token?.slice(1, -1)}`,
       },
@@ -22,7 +22,7 @@ export const getTodosTask = async (todosGroupId: number) => {
 
     const data = await response.json();
 
-    return data;
+    return data.data;
   } catch (error) {
     console.error("Error during API call:", error);
     throw error;
@@ -32,7 +32,7 @@ export const getTodosTask = async (todosGroupId: number) => {
 export const postTodosTask = async (payload: ModalNewTaskDataAPIInterface) => {
   try {
     const response = await fetch(
-      `${API_URL}/todos/${payload.todos_group_id}/items`,
+      `${API_URL}/api/todos/${payload.todos_group_id}/items`,
       {
         method: "POST",
         headers: {
@@ -65,7 +65,7 @@ export const editTodosTask = async (payload: ModalPatchTaskInterface) => {
 
   try {
     const response = await fetch(
-      `${API_URL}/todos/${payload.todos_group_id}/items/${payload.task_id}`,
+      `${API_URL}/api/todos/${payload.todos_group_id}/items/${payload.task_id}`,
       {
         method: "PATCH",
         headers: {
@@ -96,7 +96,7 @@ export const moveTodosTask = async (payload: ModalPatchTaskInterface) => {
 
   try {
     const response = await fetch(
-      `${API_URL}/todos/${payload.todos_group_id}/items/${payload.task_id}`,
+      `${API_URL}/api/todos/${payload.todos_group_id}/items/${payload.task_id}`,
       {
         method: "PATCH",
         headers: {
@@ -129,7 +129,7 @@ export const deleteTodosTask = async ({
 }) => {
   try {
     const response = await fetch(
-      `${API_URL}/todos/${group_id}/items/${task_id}`,
+      `${API_URL}/api/todos/${group_id}/items/${task_id}`,
       {
         method: "DELETE",
         headers: {

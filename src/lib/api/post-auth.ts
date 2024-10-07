@@ -4,7 +4,7 @@ const API_URL = import.meta.env.VITE_BASE_LINK_URL;
 
 export const PostLogin = async (payload: AuthInputInterface) => {
   try {
-    const response = await fetch(`${API_URL}/auth/login`, {
+    const response = await fetch(`${API_URL}/api/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -13,7 +13,11 @@ export const PostLogin = async (payload: AuthInputInterface) => {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const res = await response.json();
+
+      throw new Error(
+        `HTTP error! status: ${response.status}, error: ${res.message}`
+      );
     }
 
     const data = await response.json();
@@ -27,7 +31,7 @@ export const PostLogin = async (payload: AuthInputInterface) => {
 
 export const PostRegister = async (payload: RegisterInterface) => {
   try {
-    const response = await fetch(`${API_URL}/signup`, {
+    const response = await fetch(`${API_URL}/api/users/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +40,11 @@ export const PostRegister = async (payload: RegisterInterface) => {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const res = await response.json();
+
+      throw new Error(
+        `HTTP error! status: ${response.status}, error: ${res.message}`
+      );
     }
 
     const data = await response.json();
