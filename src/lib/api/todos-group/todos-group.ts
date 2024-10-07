@@ -17,7 +17,7 @@ export const getTodosGroup = async () => {
 
     const data = await response.json();
 
-    return data;
+    return data.data;
   } catch (error) {
     console.error("Error during API call:", error);
     throw error;
